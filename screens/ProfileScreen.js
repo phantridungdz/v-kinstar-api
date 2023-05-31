@@ -12,15 +12,15 @@ const ProfileScreen = ({navigation, route}) => {
   const {userInfo} = route.params
   const [userReading, setUserReading] = useState(false)
   const {postByUsername, postUser} = useContext(PostContext)
-  const [allUsers, setAllUsers] = useState([])
-  axios({
-    method: 'get',
-    headers: {Authorization: `${userInfo.access_token}`},
-    url: `${BASE_URL}/user`,
-  }).then((response) => {
-    let allusers = response.data.users
-    setAllUsers(allusers)
-  });
+  const [allUsers, setAllUsers] = useState('')
+  // axios({
+  //   method: 'get',
+  //   headers: {Authorization: `${userInfo.access_token}`},
+  //   url: `${BASE_URL}/user`,
+  // }).then((response) => {
+  //   let allusers = response.data.users
+  //   setAllUsers(allusers)
+  // });
 
   axios({
     method: 'get',
@@ -70,13 +70,13 @@ const ProfileScreen = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: 'black', flex: 1}}>
-      <Header navigation={navigation} userInfo={userInfo}>
+      <Header navigation={navigation} userReading={userReading}>
       </Header>
       <View style={{flexDirection: 'row'}}>
         <View style={{ flex: 0.8, alignItems: 'center'}}> 
           <Image source={{ uri: userReading.avatar}} style={{ width: 100, height: 100, borderRadius: 50}}></Image>
           <Text style={{color: 'white', textAlign: 'center', fontWeight:'900'}}>{userReading.username}</Text>
-          <Text style={{color: 'white', textAlign: 'center', fontWeight:'400', fontSize: 11}}>{userInfo.story}</Text>
+          <Text style={{color: 'white', textAlign: 'center', fontWeight:'400', fontSize: 11}}>{userReading.story}</Text>
         </View>
         
         <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'space-around', width: 200}}>
@@ -150,7 +150,7 @@ const ProfileScreen = ({navigation, route}) => {
           </View>
         </View>
         <DiscoverPeople></DiscoverPeople>
-        <UserNeedFollow allUsers={allUsers} userInfo={userInfo} userReading={userReading} handleFollow={handleFollow}></UserNeedFollow>
+        {/* <UserNeedFollow allUsers={allUsers} userInfo={userInfo} userReading={userReading} handleFollow={handleFollow}></UserNeedFollow> */}
         <View>
           {postUser?.post  && (
             <Gallery post={postUser.post}></Gallery>
@@ -162,14 +162,14 @@ const ProfileScreen = ({navigation, route}) => {
     </SafeAreaView>
   )
 }
-const Header = ({navigation, userInfo}) => (
+const Header = ({navigation, userReading}) => (
   <View style={styles.headerContrainer}>
     <TouchableOpacity onPress={() => navigation.goBack()}>
         <View>
           <Image source={{ uri: 'https://img.icons8.com/material/24/ffffff/back--v1.png'}} style={{ width: 35, height: 35}}></Image>
         </View>
     </TouchableOpacity>
-    <Text style={styles.headerText}>{userInfo.username}</Text>
+    <Text style={styles.headerText}>{userReading.username}</Text>
   </View>
 )
 const DiscoverPeople = () => (

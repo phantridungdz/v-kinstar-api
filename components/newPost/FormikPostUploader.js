@@ -69,6 +69,7 @@ const FormikPostUploader = ({ navigation, onShowPopup}) => {
         },
       ).then(res => {
         console.log(res.data)
+        navigation.goBack()
       }).catch(e =>{
         console.log(`logout error ${e}`)
       })

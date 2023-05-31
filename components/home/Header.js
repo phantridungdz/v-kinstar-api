@@ -25,10 +25,18 @@ const Header = ({navigation}) => {
             source={{ uri: 'https://img.icons8.com/fluency-systems-regular/60/ffffff/plus-2-math.png' }}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen', {
+          userInfo: userInfo,
+        })}>
           <Image 
             style={styles.icon}
             source={{ uri: 'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png' }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ChatGPT')}>
+          <Image 
+            style={styles.icon}
+            source={{ uri: 'https://openai.com/content/images/2022/05/openai-avatar.png' }}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('ChatScreen', {

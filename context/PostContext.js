@@ -9,20 +9,18 @@ export const PostContext = createContext();
 
 export const PostProvider = ({children}) => {
   const {userInfo} = useContext(AuthContext)
-  const [allPosts, setAllPost] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
   const [postUser, setPostUser] = useState({})
 
   const allpost = () => {
-    useEffect(() => {
-      axios({
-        method: 'get',
-        headers: {Authorization: `${userInfo.access_token}`},
-        url: `${BASE_URL}/posts`,
-      }).then((response) => {
-        let allpost = response.data.posts
-      });
-    }, [])
+
+    axios({
+      method: 'get',
+      headers: {Authorization: `${userInfo.access_token}`},
+      url: `${BASE_URL}/posts`,
+    }).then((response) => {
+      let allpost = response.data.posts
+    });
+
   }
   
   const postByUsername = (userInfo, user) => {

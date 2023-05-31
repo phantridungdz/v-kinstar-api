@@ -15,6 +15,44 @@ const AudioCallScreen = ({navigation, route}) => {
   const {caller} = route.params
   const otherVideo = useRef()
 
+  
+
+  const API_URI = `https://vkinsta.com`
+  const socket = IO(`${API_URI}`, {
+    transports: ['websocket'],
+    jsonp: false 
+  });   
+  socket.connect(); 
+  console.log('socket1',socket)
+
+  const avatar = caller.user.avatar
+  const username = caller.user.username
+  const fullname = caller.user.fullname
+  const video = true
+
+  const msg = {
+    sender: caller.user._id,
+    recipient: callUser._id, avatar, username, fullname, video
+  }
+
+  const peerServer = new Peer(undefined, {
+    path: '/', 
+    secure: true,
+  })
+  console.log('peer1', peerServer)
+  peerServer.on('connection', data => {
+    data.on('close', () => {
+      console.log('Peer server data', data)
+      data.close()
+    })
+    
+  })
+  peerServer.on('error', (err) =>
+    console.log('Peer server error', err),
+  );
+  
+  
+
   // let isFront = true;
   // mediaDevices.enumerateDevices().then((sourceInfos) => {
   //   let videoSourceId;
@@ -27,7 +65,6 @@ const AudioCallScreen = ({navigation, route}) => {
   //       videoSourceId = sourceInfo.deviceId;
   //     }
   //   }
-
 
   //   mediaDevices
   //     .getUserMedia({
@@ -44,62 +81,23 @@ const AudioCallScreen = ({navigation, route}) => {
   //     })
   //     .then((stream) => {
   //       setVideoCall(stream)
+  //       peerServer.on('call', data => {
+  //         console.log('peer1: ' + data)
+  //         // const track = videoCall.getTracks()
+  //         // console.log('asdklajsdlkasd')
+  //         // console.log(track)
+  //         // setTracks(track)
+      
+  //         // newCall.answer(videoCall)
+  //         // newCall.on('stream', function(remoteStream){
+      
+  //         // })
+  //       })
   //     })
   //     .catch((error) => {
   //       console.log(error);
   //     });
   // });
-
-  const API_URI = `https://vkinsta.com`
-  const socket = IO(`${API_URI}`, {
-    transports: ['websocket'], jsonp: false 
-  });   
-  socket.connect(); 
-  socket.on('connect', () => { 
-    console.log('connected to socket server', socket); 
-  });
-
-  const avatar = caller.user.avatar
-  const username = caller.user.username
-  const fullname = caller.user.fullname
-  const video = true
-
-  const msg = {
-    sender: caller.user._id,
-    recipient: callUser._id, avatar, username, fullname, video
-  }
-
-  const peerServer = new Peer(undefined, {
-    path: '/', 
-    secure: true,
-    port: 443,
-    config: {
-      iceServers: [
-        {
-          urls: [
-            'stun:stun.l.google.com:19302',
-          ],
-        },
-      ],
-    },
-  })
-  console.log('peerserver', peerServer)
-  peerServer.on('error', (err) =>
-    console.log('Peer server error', err),
-  );
-  
-  peerServer.on('call', data => {
-    console.log('peer1: ' + data)
-    // const track = videoCall.getTracks()
-    // console.log('asdklajsdlkasd')
-    // console.log(track)
-    // setTracks(track)
-
-    // newCall.answer(videoCall)
-    // newCall.on('stream', function(remoteStream){
-
-    // })
-  })
   
  
 
@@ -107,7 +105,6 @@ const AudioCallScreen = ({navigation, route}) => {
     // setIdCall(socket.id)
     console.log( 'connect socket',socket)
     socket.emit('callUser', msg)
-    
     
   });
   

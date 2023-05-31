@@ -4,6 +4,8 @@ import { PostProvider } from "./context/PostContext"
 import Navigation from "./Navigation";
 
 const App = () => {
+  console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
+  console.disableYellowBox = true;
   return (
 
       <AuthProvider>

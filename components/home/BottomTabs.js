@@ -36,14 +36,10 @@ export const bottomTabIcons = [
 
 const BottomTabs = ({icons, navigation, userInfo}) => {
   const [activeTab, setActiveTab] = useState('Home')
+  const user = userInfo.user
   const Icon = ({icon, navigation}) => (
     
-    <TouchableOpacity onPress={() => {setActiveTab(icon.name), navigation.navigate(icon.navigationName, {
-          activeTab: activeTab,
-          iconName: icon.name,
-          userInfo: userInfo,
-          user: userInfo.user
-        })}}>
+    <TouchableOpacity onPress={() => console.log('puff')}>
       <Image source={{uri: activeTab == icon.name ? icon.active : icon.inactive}} style={
         styles.icon
       }/>
@@ -53,9 +49,31 @@ const BottomTabs = ({icons, navigation, userInfo}) => {
     <View style={styles.wrapper}>
       <Divider width={1} orientation='vertical'/>
       <View style={styles.container}> 
-        {icons.map((icon, index) =>(
-          <Icon key={index} icon={icon} navigation={navigation}/>
-        ))}
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+          <Image source={{uri: 'https://img.icons8.com/fluency-systems-filled/144/ffffff/home.png'}} style={
+            styles.icon
+          }/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', {userInfo, user})}>
+          <Image source={{uri: 'https://img.icons8.com/fluency-systems-filled/144/ffffff/search.png'}} style={
+            styles.icon
+          }/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ReelsScreen', {userInfo, user})}>
+          <Image source={{uri: 'https://img.icons8.com/ios-filled/500/ffffff/instagram-reel.png'}} style={
+            styles.icon
+          }/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ReelsScreen', {userInfo, user})}>
+          <Image source={{uri: 'https://img.icons8.com/fluency-systems-filled/144/ffffff/shopping-bag-full.png'}} style={
+            styles.icon
+          }/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen', {userInfo, user})}>
+          <Image source={{uri: 'https://img.icons8.com/material/24/ffffff/user-male-circle--v1.png'}} style={
+            styles.icon
+          }/>
+        </TouchableOpacity>
       </View>
     </View>
     

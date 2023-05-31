@@ -9,10 +9,14 @@ import CommentScreen from './screens/CommentScreeen'
 import NewPostScreen from './screens/NewPostScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import ChatScreen from './screens/ChatScreen'
+import ReelsScreen from './screens/ReelsScreen'
 import { useState, useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
 import MessesageScreen from './screens/MessageScreen'
 import AudioCallScreen from './screens/AudioCallScreen'
+import ChatGPT from './screens/ChatGPT'
+import NotificationScreen from './screens/NotificationScreen'
+import SearchScreen from './screens/SearchScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -36,6 +40,10 @@ const Navigation = () => {
               <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{headerShown: false}}/>
               <Stack.Screen name="MessesageScreen" component={MessesageScreen} options={{headerShown: false}}/>
               <Stack.Screen name="AudioCallScreen" component={AudioCallScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="ReelsScreen" component={ReelsScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="NotificationScreen" component={NotificationScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="SearchScreen" component={SearchScreen} options={{headerShown: false}}/>
+              <Stack.Screen name="ChatGPT" component={ChatGPT} options={{headerShown: false}}/>
             </>
           ):(
             <>
